@@ -32,5 +32,16 @@ app.post("/email_post", function (req, res) {
 app.post("/ajax_send_email", function (req, res) {
   console.log(req.body);
   var responseData = { result: "ok", email: req.body.email };
+
+  console.log("!!server object is " + responseData);
+  res.json(responseData);
+});
+
+app.post("/search", function (req, res) {
+  console.log("req.body is " + req.body);
+  var responseData = {
+    result: "ok",
+    content: ` ${req.body.word}에 대한 검색 결과는 다음과 같습니다. ~~~~~~~~~~~~~~ 끝.`,
+  };
   res.json(responseData);
 });
