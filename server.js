@@ -1,7 +1,18 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var cors = require("cors");
+var mysql = require("mysql");
 var app = express();
+
+var connection = mysql.createConnection({
+  host: "127.0.0.1",
+  port: 3306,
+  user: "root",
+  password: "asdf456852",
+  database: "nodep",
+});
+
+connection.connect();
 
 app.listen(3000, function () {
   console.log("server start!");
@@ -38,10 +49,9 @@ app.post("/ajax_send_email", function (req, res) {
 });
 
 app.post("/search", function (req, res) {
-  console.log("req.body is " + req.body);
   var responseData = {
     result: "ok",
     content: ` ${req.body.word}에 대한 검색 결과는 다음과 같습니다. ~~~~~~~~~~~~~~ 끝.`,
   };
-  res.json(responseData);
+  res.json(responseData); // 자동으로 json으로 변환하여서 send 해줌.
 });
