@@ -42,10 +42,24 @@ app.post("/email_post", function (req, res) {
 
 app.post("/ajax_send_email", function (req, res) {
   console.log(req.body);
-  var responseData = { result: "ok", email: req.body.email };
+  var email = req.body.email;
+  var responseData = {};
 
-  console.log("!!server object is " + responseData);
-  res.json(responseData);
+  var query = connection.query(
+    'select name from user where email = "' + email + '"',
+    function (err, rows) {
+      if (err) throw err;
+      if (rows[0]) {
+        responseData = { result: "ok", name: rows[0].name };
+      } else {
+        responseData = { result: "false", name: "" };
+      }
+      res.json(responseData);
+    }
+  );
+
+  // console.log("!!server object is " + responseData);
+  // res.json(responseData);
 });
 
 app.post("/search", function (req, res) {
