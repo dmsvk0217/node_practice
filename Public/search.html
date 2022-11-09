@@ -17,7 +17,10 @@
       "
     >
       <h1>나의 경쟁력 나이브</h1>
-      <input type="text" class="word" name="word" />
+      <form action="/search/ejs" method="post">
+        <input type="text" class="word" name="word" />
+        <button type="submit">ejs 검색하기</button>
+      </form>
       <button class="ajaxSearch">검색하기</button>
       <div class="content"></div>
     </div>

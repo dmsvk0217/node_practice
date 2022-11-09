@@ -11,4 +11,11 @@ router.post("/", function (req, res) {
   res.json(responseData);
 });
 
+router.post("/ejs", function (req, res) {
+  res.render("search.ejs", {
+    word: req.body.word,
+    content: ` ${req.body.word}에 대한 검색 결과는 다음과 같습니다. ~~~~~~~~~~~~~~ 끝.`,
+  });
+});
+
 module.exports = router;
