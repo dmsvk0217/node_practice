@@ -1,8 +1,13 @@
 var express = require("express");
+var app = express();
+
+//libs
 var bodyParser = require("body-parser");
 var cors = require("cors");
 var mysql = require("mysql");
-var app = express();
+
+//routers
+var main = require("./router/main");
 
 var connection = mysql.createConnection({
   host: "127.0.0.1",
@@ -24,12 +29,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-app.get("/", function (req, res) {
-  //res.send("hi friend!"); // body로 보내짐.
-  res.sendFile(__dirname + "/public/main.html");
-});
+app.use("/main", main);
 
-app.get("/main", function (req, res) {
+app.get("/", function (req, res) {
   //res.send("hi friend!"); // body로 보내짐.
   res.sendFile(__dirname + "/public/main.html");
 });

@@ -27,7 +27,6 @@
         .querySelector(".ajaxSearch")
         .addEventListener("click", function () {
           var inputdata = document.querySelector(".word").value;
-          console.log(inputdata);
           sendAjax("http://127.0.0.1:3000/search", inputdata);
         });
 
@@ -42,8 +41,6 @@
 
         xhr.addEventListener("load", function () {
           var res = JSON.parse(xhr.responseText);
-          console.log("xhr.responseText is " + xhr.responseText);
-          console.log("res obj is " + res);
           if (res.result != "ok") return;
           document.querySelector(".content").innerHTML = res.content;
         });
