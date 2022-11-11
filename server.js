@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: "keyboard cat", // 이무 키워드가 상관없음.
     resave: false,
     saveUninitialized: true,
   })
