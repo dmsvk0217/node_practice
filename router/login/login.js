@@ -17,13 +17,9 @@ connection.connect();
 
 //login router -> 로그인 페이지.
 router.get("/", function (req, res) {
-  var msg;
-  var errMsg = req.flash("error");
-  if (errMsg) msg = errMsg;
-
   console.log("login page");
   console.log("login session is : ", req.session);
-  res.render("login.ejs", { message: msg });
+  res.render("login.ejs");
 });
 
 passport.serializeUser(function (user, done) {
@@ -76,18 +72,21 @@ passport.use(
   )
 );
 
-router.post(
-  "/",
-  passport.authenticate("local-login", { failureRedirect: "/" }),
-  function (req, res) {
-    console.log(req.user);
-    req.login(req.user, function (err) {
+router.post("/", function (req, res, next) {
+  passport.authenticate("local-login", function (err, user, info) {
+    if (err) {
+      return res.status(500).json(err);
+    }
+    if (!user) {
+      return res.status(401).json(info.message);
+    }
+    req.logIn(user, function (err) {
       if (err) {
         return next(err);
       }
-      return res.redirect("/main");
+      return res.json(user);
     });
-  }
-);
+  })(req, res, next);
+});
 
 module.exports = router;

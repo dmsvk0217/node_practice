@@ -11,6 +11,7 @@ router.get("/", function (req, res) {
   var user = req.user; // passport가 보내준 객체.
   if (!user) res.render("login.ejs", { message: "" });
   else res.render("main.ejs", { id: user.id });
+  console.log("passport session is : ", user);
 });
 
 module.exports = router;
